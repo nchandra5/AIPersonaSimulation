@@ -1,0 +1,34 @@
+# OS / Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+.venv
+env/
+venv/
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Local config / secrets
+*.env
+*.local
+
+# VS Code
+.vscode/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
