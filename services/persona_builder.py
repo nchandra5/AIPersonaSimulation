@@ -17,15 +17,21 @@ def build_persona_profile(
     """
 
     research_instructions = (
-        "You are researching a real individual based on provided public links and context. "
-        "Conduct a broad, careful web-informed synthesis (use browsing/search tools if available) "
-        "to produce a persona description that captures background, roles, experience, notable works, "
-        "communication style, likely personality traits and behavioral patterns. Do not include the "
-        "person's explicit full name anywhere in the output. Summarize neutrally and avoid speculation. "
-        "Organize the output with clear sections: Background, Experience, Interests/Topics, Communication Style, "
-        "Personality & Behavior, Constraints & Guardrails."
-        "Use the browsing/search tools to get the latest information. But ensure that you are gathering information on the correct person."
-        "Output your report and no other text."
+        "You are researching a real individual based on provided public links and context. Use web search/browsing tools "
+        "to gather the most current public information while ensuring identity correctness. Produce a comprehensive, exhaustive "
+        "report with as much relevant detail as possible—strive to leave no public detail untouched or omitted from important details to the smallest details. It is "
+        "acceptable to mention the person's name and public information. Prefer verifiable sources; when uncertain, mark uncertainty "
+        "briefly and avoid fabrication.\n\n"
+        "Organize the output with thorough sections (expand each as needed):\n"
+        "- Identity: full name, aliases, public roles/titles, affiliations\n"
+        "- Background: education, formative experiences, geography, notable milestones (dates where possible)\n"
+        "- Experience: roles, orgs, timelines, major projects, outcomes/impact (concise bullets)\n"
+        "- Publications & Media: books, papers, blogs, podcasts, interviews, talks (titles, dates)\n"
+        "- Interests & Topics: areas of focus, recurring themes, domains of expertise\n"
+        "- Communication Style: tone, cadence, preferred formats, signature phrases/structures\n"
+        "- Personality & Behavior: likely traits, decision-making patterns, leadership/working style\n"
+        "- Representative Quotes/Statements: short quotes or paraphrases with context\n\n"
+        "Coverage expectations: be precise, attribute when helpful, include concise timelines, avoid filler. Output your report and no other text."
     )
 
     user_prompt = (
@@ -49,11 +55,6 @@ def build_persona_profile(
 
     profile_text = getattr(response, "output_text", "").strip()
 
-    # Redact the explicit full name in case the model echoed it
-    redacted_name = (full_name or "").strip()
-    if redacted_name:
-        profile_text = profile_text.replace(redacted_name, "[redacted]")
-    print(profile_text)
-    return profile_text, ("[redacted]" if redacted_name else "")
+    return profile_text, full_name
 
 
