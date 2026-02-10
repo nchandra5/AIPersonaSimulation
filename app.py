@@ -166,6 +166,15 @@ def generate_persona_response(messages: List[Dict[str, str]], persona_profile: s
     return getattr(response, "output_text", "") or ""
 
 
+def build_transcript_text(messages: List[Dict[str, str]], persona_name: str) -> str:
+    header = f"Conversation with {persona_name}\n{'=' * (18 + len(persona_name))}\n\n"
+    lines: List[str] = [header]
+    for msg in messages:
+        role = "You" if msg["role"] == "user" else "Persona"
+        lines.append(f"{role}: {msg['content']}\n")
+    return "".join(lines)
+
+
 def main() -> None:
     st.set_page_config(page_title=APP_TITLE, page_icon="🤖", layout="wide")
     initialize_session_state()
